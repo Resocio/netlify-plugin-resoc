@@ -1,5 +1,5 @@
 {
-  "name": "netlify-plugin-example",
+  "name": "@resoc/netlify-plugin-social-image",
   "version": "0.0.1",
   "description": "Netlify Build plugin - {{description}}",
   "main": "src/index.js",
