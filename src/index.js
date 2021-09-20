@@ -2,6 +2,9 @@
 // Please read the comments to learn more about the Netlify Build plugin syntax.
 // Find more information in the Netlify documentation.
 
+const { join } = require('path')
+const { ensureDir, copyFile } = require('fs-extra')
+
 /* eslint-disable no-unused-vars */
 module.exports = {
   // The plugin main logic uses `on...` event handlers that are triggered on
@@ -65,7 +68,7 @@ module.exports = {
       // Utility for dealing with modified, created, deleted files since a git commit.
       // See https://github.com/netlify/build/blob/master/packages/git-utils#readme
       git,
-       // Utility for handling Netlify Functions.
+      // Utility for handling Netlify Functions.
       // See https://github.com/netlify/build/tree/master/packages/functions-utils#readme
       functions,
     },
@@ -82,6 +85,14 @@ module.exports = {
     console.log('Netlify configuration', netlifyConfig)
     console.log('Plugin configuration', inputs)
     console.log('Build directory', PUBLISH_DIR)
+
+    const functionDir = join(FUNCTIONS_DIST, 'resoc');
+    console.log('Copy Resoc Function to', functionDir)
+    await ensureDir(functionDir);
+    await copyFile(
+      join(__dirname, 'netlify-function.js'),
+      join(functionDir, 'open-graph-image.js')
+    );
 
     // Display success information
     status.show({ summary: 'Success!' })
