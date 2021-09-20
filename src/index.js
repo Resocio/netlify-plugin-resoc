@@ -100,7 +100,8 @@ module.exports = {
       join(functionDir, 'resoc-open-graph-image.js')
     );
     await writeJSON(join(functionDir, 'resoc-open-graph-image.json'), {
-      external_node_modules: [ "chrome-aws-lambda", "puppeteer" ]
+      external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],
+      included_files: [ "test/sample/resoc-template/**" ]
     });
   },
 
