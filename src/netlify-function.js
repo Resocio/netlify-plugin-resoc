@@ -13,7 +13,7 @@ exports.handler = async (event, context) => {
 
     const template = await resocCreateImg.loadLocalTemplate('test/sample/resoc-template/resoc.manifest.json');
 
-    const htmlPath = await resoc.renderLocalTemplate(
+    const htmlPath = await resocCreateImg.renderLocalTemplate(
       template, {
         title: 'A picture is worth a thousand words!!',
         mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
       'assets/resoc-template'
     );
 
-    const image = await resoc.convertUrlToImage(
+    const image = await resocCreateImg.convertUrlToImage(
       `file:///${htmlPath}`, {
         type: 'jpeg',
         quality: 80,
