@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
       headless: chromium.headless
     });
 
-    const template = await resocCreateImg.loadLocalTemplate('resoc-template/resoc.manifest.json');
+    const template = await resocCreateImg.loadLocalTemplate('test/sample/resoc-template/resoc.manifest.json');
 
     const htmlPath = await resoc.renderLocalTemplate(
       template, {
