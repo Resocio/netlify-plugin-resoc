@@ -3,7 +3,7 @@
 // Find more information in the Netlify documentation.
 
 const { join } = require('path')
-const { ensureDir, copyFile } = require('fs-extra')
+const { ensureDir, copyFile, writeJSON } = require('fs-extra')
 
 /* eslint-disable no-unused-vars */
 module.exports = {
@@ -93,6 +93,7 @@ module.exports = {
       join(__dirname, 'netlify-function.js'),
       join(functionDir, 'open-graph-image.js')
     );
+    await writeJSON(join(functionDir, 'open-graph-image.json'), {});
 
     // Display success information
     status.show({ summary: 'Success!' })
