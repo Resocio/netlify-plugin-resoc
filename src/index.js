@@ -86,7 +86,7 @@ module.exports = {
     console.log('Plugin configuration', inputs)
     console.log('Build directory', PUBLISH_DIR)
 
-    const functionDir = join(FUNCTIONS_DIST, 'resoc');
+    const functionDir = join(FUNCTIONS_SRC || 'netlify/functions', 'resoc');
     console.log('Copy Resoc Function to', functionDir)
     await ensureDir(functionDir);
     await copyFile(
