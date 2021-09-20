@@ -17,3 +17,6 @@ command = "echo onBuild"
 
 [build.environment]
 NODE_VERSION = "12.18.0"
+
+[functions]
+  included_files = [ "test/sample/resoc-template/**" ]
