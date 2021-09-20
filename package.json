@@ -49,6 +49,8 @@
     "release-it": "^14.0.3"
   },
   "dependencies": {
+    "@resoc/core": "^0.5.0",
+    "@resoc/create-img": "^0.5.2",
     "chrome-aws-lambda": "^10.1.0",
     "fs-extra": "^10.0.0",
     "puppeteer-core": "^10.2.0"

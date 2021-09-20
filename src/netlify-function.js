@@ -1,5 +1,8 @@
 const chromium = require('chrome-aws-lambda');
 
+const resocCore = require('@resoc/core');
+const resocCreateImg = require('@resoc/create-img');
+
 exports.handler = async (event, context) => {
   try {
     const browser = await chromium.puppeteer.launch({
@@ -7,6 +10,8 @@ exports.handler = async (event, context) => {
       args: chromium.args,
       headless: chromium.headless
     });
+
+    const template = await resocCreateImg.loadLocalTemplate('resoc-template/resoc.manifest.json');
 
     return { statusCode: 200, body: "Hello from Resoc!" };
   } catch (error) {
