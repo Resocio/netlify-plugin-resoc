@@ -13,7 +13,37 @@ exports.handler = async (event, context) => {
 
     const template = await resocCreateImg.loadLocalTemplate('resoc-template/resoc.manifest.json');
 
-    return { statusCode: 200, body: "Hello from Resoc!" };
+    const htmlPath = await resoc.renderLocalTemplate(
+      template, {
+        title: 'A picture is worth a thousand words!!',
+        mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
+        textColor: '#ffffff',
+        backgroundColor: '#20552a'
+      },
+      resocCore.FacebookOpenGraph,
+      'assets/resoc-template'
+    );
+
+    const image = await resoc.convertUrlToImage(
+      `file:///${htmlPath}`, {
+        type: 'jpeg',
+        quality: 80,
+        encoding: "base64",
+        fullPage: true
+      },
+      browser
+    );
+
+    console.log("Chrome closed");
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'image/jpg'
+      },
+      body: image,
+      isBase64Encoded: true
+    };
   } catch (error) {
     console.log(error);
     return {
