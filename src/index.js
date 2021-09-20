@@ -86,25 +86,26 @@ module.exports = {
     console.log('Plugin configuration', inputs)
     console.log('Build directory', PUBLISH_DIR)
 
-    const functionDir = join(FUNCTIONS_SRC || 'netlify/functions', 'resoc');
+    // Display success information
+    status.show({ summary: 'Success!' })
+  },
+
+  // Build commands are executed
+  async onBuild({ constants }) {
+    const functionDir = join(constants.FUNCTIONS_SRC || 'netlify/functions');
     console.log('Copy Resoc Function to', functionDir)
     await ensureDir(functionDir);
     await copyFile(
       join(__dirname, 'netlify-function.js'),
-      join(functionDir, 'open-graph-image.js')
+      join(functionDir, 'resoc-open-graph-image.js')
     );
     await writeJSON(join(functionDir, 'open-graph-image.json'), {});
-
-    // Display success information
-    status.show({ summary: 'Success!' })
   },
 
   // Other available event handlers
   /*
   // Before build commands are executed
   onPreBuild() {},
-  // Build commands are executed
-  onBuild() {},
   // After Build commands are executed
   onPostBuild() {},
   // Runs on build success
