@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         backgroundColor: '#20552a'
       },
       resocCore.FacebookOpenGraph,
-      'assets/resoc-template'
+      'test/sample/resoc-template'
     );
 
     const image = await resocCreateImg.convertUrlToImage(
