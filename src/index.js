@@ -99,7 +99,9 @@ module.exports = {
       join(__dirname, 'netlify-function.js'),
       join(functionDir, 'resoc-open-graph-image.js')
     );
-    await writeJSON(join(functionDir, 'open-graph-image.json'), {});
+    await writeJSON(join(functionDir, 'resoc-open-graph-image.json'), {
+      external_node_modules: [ "chrome-aws-lambda", "puppeteer" ]
+    });
   },
 
   // Other available event handlers
