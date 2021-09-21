@@ -102,6 +102,10 @@ module.exports = {
       join(functionDir, 'resoc-open-graph-image.js')
     );
 
+    const slugToImageData = inputs.slug_to_image_data
+      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data}`
+      : null;
+
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
         slug_to_image_data: inputs.slug_to_image_data
