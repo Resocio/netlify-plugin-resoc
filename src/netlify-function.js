@@ -15,7 +15,7 @@ const slugToImageData = (slug) => {
     return null;
   }
 
-  const toImg = require(`${process.cwd()}/${config.slug_to_image_data}`);
+  const toImg = config.slug_to_image_data;
   return toImg.slugToImageData(slug);
 }
 
