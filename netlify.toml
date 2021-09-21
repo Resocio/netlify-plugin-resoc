@@ -8,8 +8,8 @@
 # Local path to the plugin.
 package = "."
   # Plugin configuration
-  #  [plugins.inputs]
-  #  foo = "bar"
+  [plugins.inputs]
+  templates_dir = "test/sample"
 
 [build]
 # Dummy build command

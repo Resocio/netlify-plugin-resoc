@@ -3,7 +3,9 @@
 // Find more information in the Netlify documentation.
 
 const { join } = require('path')
-const { ensureDir, copyFile, writeJSON } = require('fs-extra')
+const { ensureDir, copyFile, copy } = require('fs-extra')
+
+const TEMPLATES_DIR = 'build-time-resoc-templates';
 
 /* eslint-disable no-unused-vars */
 module.exports = {
@@ -91,7 +93,7 @@ module.exports = {
   },
 
   // Build commands are executed
-  async onBuild({ netlifyConfig, constants }) {
+  async onBuild({ netlifyConfig, constants, inputs }) {
     const functionDir = join(constants.FUNCTIONS_SRC || 'netlify/functions');
     console.log('Copy Resoc Function to', functionDir)
     await ensureDir(functionDir);
@@ -100,9 +102,11 @@ module.exports = {
       join(functionDir, 'resoc-open-graph-image.js')
     );
 
+    await copy(inputs.templates_dir, TEMPLATES_DIR);
+
     netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
       external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],
-      included_files: [ "test/sample/resoc-template/**" ],
+      included_files: [ `${TEMPLATES_DIR}/**` ],
       node_bundler: 'esbuild'
     }
 

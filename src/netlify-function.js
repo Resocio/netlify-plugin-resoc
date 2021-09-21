@@ -11,7 +11,7 @@ exports.handler = async (event, context) => {
       headless: chromium.headless
     });
 
-    const template = await resocCreateImg.loadLocalTemplate('test/sample/resoc-template/resoc.manifest.json');
+    const template = await resocCreateImg.loadLocalTemplate('build-time-resoc-templates/default/resoc.manifest.json');
 
     const htmlPath = await resocCreateImg.renderLocalTemplate(
       template, {
@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
         backgroundColor: '#20552a'
       },
       resocCore.FacebookOpenGraph,
-      'test/sample/resoc-template'
+      'build-time-resoc-templates/default'
     );
 
     const image = await resocCreateImg.convertUrlToImage(
