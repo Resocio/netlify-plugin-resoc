@@ -1,7 +1,6 @@
 name: 'netlify-plugin-{{name}}'
-inputs: []
-# Example inputs:
-#  - name: example
-#    description: Example description
-#    default: 5
-#    required: false
+inputs:
+  - name: templates_dir
+    description: Resoc tempolates directory.
+    default: resoc-templates
+    required: false
