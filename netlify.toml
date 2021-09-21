@@ -10,6 +10,7 @@ package = "."
   # Plugin configuration
   [plugins.inputs]
   templates_dir = "test/sample/resoc-templates"
+  slug_to_image_data = "test/sample/slug-to-image-data"
 
 [build]
 # Dummy build command

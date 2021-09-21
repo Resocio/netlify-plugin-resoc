@@ -4,3 +4,6 @@ inputs:
     description: Resoc tempolates directory.
     default: resoc-templates
     required: false
+  - name: slug_to_image_data
+    description: JS file which default export is a function that returns the template name and parameter values for a given slug.
+    required: false

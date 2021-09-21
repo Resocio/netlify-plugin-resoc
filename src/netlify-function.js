@@ -3,25 +3,44 @@ const chromium = require('chrome-aws-lambda');
 const resocCore = require('@resoc/core');
 const resocCreateImg = require('@resoc/create-img');
 
+const eventToSlug = (event) => {
+  const path = event.path;
+  return path.substr(path.lastIndexOf('/') + 1);
+}
+
+const slugToImageData = (slug) => {
+  if (!config.slug_to_template_params) {
+    return null;
+  }
+
+  const toImg = require(`${process.cwd()}/${config.slug_to_template_params}`);
+  return toImg.slugToImageData(slug);
+}
+
 exports.handler = async (event, context) => {
   try {
+    const slug = eventToSlug(event);
+    const imgData = slugToImageData(slug);
+    if (!imgData) {
+      return {
+        statusCode: 404,
+        body: JSON.stringify({ error: `No image for ${slug}` })
+      };
+    }
+
     const browser = await chromium.puppeteer.launch({
       executablePath: await chromium.executablePath,
       args: chromium.args,
       headless: chromium.headless
     });
 
-    const template = await resocCreateImg.loadLocalTemplate('build-time-resoc-templates/default/resoc.manifest.json');
+    const templateDir = `build-time-resoc-templates/${imgData.template}`;
+    const template = await resocCreateImg.loadLocalTemplate(`${templateDir}/resoc.manifest.json`);
 
     const htmlPath = await resocCreateImg.renderLocalTemplate(
-      template, {
-        title: 'A picture is worth a thousand words!!',
-        mainImageUrl: 'https://resoc.io/assets/img/demo/photos/pexels-photo-371589.jpeg',
-        textColor: '#ffffff',
-        backgroundColor: '#20552a'
-      },
+      template, imgData.values,
       resocCore.FacebookOpenGraph,
-      'build-time-resoc-templates/default'
+      templateDir
     );
 
     const image = await resocCreateImg.convertUrlToImage(
