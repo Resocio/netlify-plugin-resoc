@@ -11,11 +11,11 @@ const eventToSlug = (event) => {
 }
 
 const slugToImageData = (slug) => {
-  if (!config.slug_to_template_params) {
+  if (!config.slug_to_image_data) {
     return null;
   }
 
-  const toImg = require(`${process.cwd()}/${config.slug_to_template_params}`);
+  const toImg = require(`${process.cwd()}/${config.slug_to_image_data}`);
   return toImg.slugToImageData(slug);
 }
 
