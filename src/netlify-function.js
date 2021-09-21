@@ -15,7 +15,7 @@ const slugToImageData = (slug) => {
     return null;
   }
 
-  const toImg = config.slug_to_image_data;
+  const toImg = require(config.slug_to_image_data);
   return toImg.slugToImageData(slug);
 }
 
