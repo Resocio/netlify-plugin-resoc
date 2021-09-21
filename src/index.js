@@ -3,7 +3,7 @@
 // Find more information in the Netlify documentation.
 
 const { join } = require('path')
-const { ensureDir, copyFile, copy, writeJSON } = require('fs-extra')
+const { ensureDir, copyFile, copy, writeJSON } = require('fs-extra');
 
 const TEMPLATES_DIR = 'build-time-resoc-templates';
 
@@ -102,21 +102,28 @@ module.exports = {
       join(functionDir, 'resoc-open-graph-image.js')
     );
 
-    const slugToImageData = inputs.slug_to_image_data
-      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data}`
+    const slugToImageData = inputs.slug_to_image_data_function
+      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data_function}`
+      : null;
+    const toImgDataMappingFile = inputs.slug_to_image_data_mapping_file
+      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data_mapping_file}`
       : null;
 
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
-        slug_to_image_data: slugToImageData
+        slug_to_image_data_function: slugToImageData,
+        slug_to_image_data_mapping_file: toImgDataMappingFile
       }
     );
 
     await copy(inputs.templates_dir, TEMPLATES_DIR);
 
     const includedFiles = [ `${TEMPLATES_DIR}/**` ];
-    if (inputs.slug_to_image_data) {
-      includedFiles.push(`${inputs.slug_to_image_data}*`);
+    if (inputs.slug_to_image_data_function) {
+      includedFiles.push(`${inputs.slug_to_image_data_function}*`);
+    }
+    if (inputs.slug_to_image_data_mapping_file) {
+      includedFiles.push(inputs.slug_to_image_data_mapping_file);
     }
     netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
       external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],

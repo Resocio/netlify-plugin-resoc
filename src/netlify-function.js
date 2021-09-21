@@ -10,19 +10,35 @@ const eventToSlug = (event) => {
   return path.substr(path.lastIndexOf('/') + 1);
 }
 
-const slugToImageData = (slug) => {
-  if (!config.slug_to_image_data) {
+const slugToImageDataViaFunction = (slug) => {
+  if (!config.slug_to_image_data_function) {
     return null;
   }
 
-  const toImg = require(config.slug_to_image_data);
+  const toImg = require(config.slug_to_image_data_function);
   return toImg.slugToImageData(slug);
+}
+
+const slugToImageDataViaMappingFile = (slug) => {
+  if (!config.slug_to_image_data_mapping_file) {
+    return null;
+  }
+
+  return resocCreateImg.getImageData(config.slug_to_image_data_mapping_file, slug);
 }
 
 exports.handler = async (event, context) => {
   try {
     const slug = eventToSlug(event);
-    const imgData = slugToImageData(slug);
+
+    // First method: function
+    let imgData = slugToImageDataViaFunction(slug);
+
+    // Second method: mapping file
+    if (!imgData) {
+      let imgData = slugToImageDataViaMappingFile(slug);
+    }
+
     if (!imgData) {
       return {
         statusCode: 404,
