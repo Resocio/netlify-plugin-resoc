@@ -3,6 +3,8 @@ const chromium = require('chrome-aws-lambda');
 const resocCore = require('@resoc/core');
 const resocCreateImg = require('@resoc/create-img');
 
+const config = require('./resoc-open-graph-image.json');
+
 const eventToSlug = (event) => {
   const path = event.path;
   return path.substr(path.lastIndexOf('/') + 1);
