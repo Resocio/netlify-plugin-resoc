@@ -108,7 +108,7 @@ module.exports = {
 
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
-        slug_to_image_data: inputs.slug_to_image_data
+        slug_to_image_data: slugToImageData
       }
     );
 
