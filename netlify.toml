@@ -9,7 +9,7 @@
 package = "."
   # Plugin configuration
   [plugins.inputs]
-  templates_dir = "test/sample"
+  templates_dir = "test/sample/resoc-templates"
 
 [build]
 # Dummy build command
