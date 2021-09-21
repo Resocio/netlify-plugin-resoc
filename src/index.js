@@ -115,8 +115,8 @@ module.exports = {
     await copy(inputs.templates_dir, TEMPLATES_DIR);
 
     const includedFiles = [ `${TEMPLATES_DIR}/**` ];
-    if (slugToImageData) {
-      includedFiles.push(`${slugToImageData}*`);
+    if (inputs.slug_to_image_data) {
+      includedFiles.push(`${inputs.slug_to_image_data}*`);
     }
     netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
       external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],
