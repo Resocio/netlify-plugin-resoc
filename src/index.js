@@ -91,7 +91,7 @@ module.exports = {
   },
 
   // Build commands are executed
-  async onBuild({ constants }) {
+  async onBuild({ netlifyConfig, constants }) {
     const functionDir = join(constants.FUNCTIONS_SRC || 'netlify/functions');
     console.log('Copy Resoc Function to', functionDir)
     await ensureDir(functionDir);
@@ -99,10 +99,14 @@ module.exports = {
       join(__dirname, 'netlify-function.js'),
       join(functionDir, 'resoc-open-graph-image.js')
     );
-    await writeJSON(join(functionDir, 'resoc-open-graph-image.json'), {
+
+    netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
       external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],
-      included_files: [ "test/sample/resoc-template/**" ]
-    });
+      included_files: [ "test/sample/resoc-template/**" ],
+      node_bundler: 'esbuild'
+    }
+
+    console.log("IN the end", netlifyConfig);
   },
 
   // Other available event handlers
