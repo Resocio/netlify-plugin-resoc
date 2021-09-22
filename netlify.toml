@@ -14,8 +14,7 @@ package = "."
   slug_to_image_data_mapping_file = "test/sample/resoc-storage.json"
 
 [build]
-# Dummy build command
-command = "echo onBuild"
+  command = "npm run build:sample"
 
 [build.environment]
 NODE_VERSION = "12.18.0"

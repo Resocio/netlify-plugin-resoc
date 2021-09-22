@@ -26,7 +26,8 @@
     "node": ">=12.18.0"
   },
   "scripts": {
-    "build": "node test/sample/register-images.mjs && netlify-build",
+    "build:netlify": "netlify-build",
+    "build:sample": "node test/sample/register-images.mjs",
     "test": "npm run lint && npm run ava",
     "lint": "npm run eslint && npm run prettier",
     "eslint": "eslint --ignore-path .gitignore --fix --cache --format=codeframe --max-warnings=0 \"{src,init}/**/*.js\"",
