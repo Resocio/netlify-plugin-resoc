@@ -116,7 +116,7 @@ module.exports = {
 
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
-        templates_dir: `${backwardPath(functionDir)}/${inputs.templates_dir}`,
+        templates_dir: inputs.templates_dir,
         slug_to_image_data_function: slugToImageData,
         slug_to_image_data_mapping_file: toImgDataMappingFile
       }
