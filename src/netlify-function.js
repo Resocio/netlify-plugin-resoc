@@ -1,3 +1,4 @@
+const path = require('path');
 const chromium = require('chrome-aws-lambda');
 
 const resocCore = require('@resoc/core');
