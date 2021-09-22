@@ -1,3 +1,5 @@
+const { builder } = require("@netlify/functions");
+
 const path = require('path');
 const fs = require('fs').promises;
 const chromium = require('chrome-aws-lambda');
@@ -37,7 +39,7 @@ const slugToImageDataViaMappingFile = async (slug) => {
   return resocCreateImg.getImageData(mappingFilePath, slug);
 }
 
-exports.handler = async (event, context) => {
+const handler = async (event, context) => {
   try {
     const slug = eventToSlug(event);
     console.log("Slug is " + slug);
@@ -100,3 +102,5 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
+exports.handler = builder(handler);
