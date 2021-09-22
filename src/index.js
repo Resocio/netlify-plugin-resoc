@@ -41,8 +41,15 @@ module.exports = {
     if (inputs.slug_to_image_data_mapping_file) {
       includedFiles.push(inputs.slug_to_image_data_mapping_file);
     }
+
     netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
-      external_node_modules: [ "chrome-aws-lambda", "puppeteer", "@resoc/core", "@resoc/create-img" ],
+      external_node_modules: [
+        'chrome-aws-lambda',
+        'puppeteer-core',
+        '@resoc/core',
+        '@resoc/create-img',
+        '@netlify/functions'
+      ],
       included_files: includedFiles,
       node_bundler: 'esbuild'
     }
