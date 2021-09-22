@@ -3,9 +3,7 @@
 // Find more information in the Netlify documentation.
 
 const { join } = require('path')
-const { ensureDir, copyFile, copy, writeJSON } = require('fs-extra');
-
-const TEMPLATES_DIR = 'build-time-resoc-templates';
+const { ensureDir, copyFile, writeJSON } = require('fs-extra');
 
 /**
  * backwardPath('some/path/to/somewhere') returns '../../../..'
@@ -118,14 +116,13 @@ module.exports = {
 
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
+        templates_dir: `${backwardPath(functionDir)}/${inputs.templates_dir}`,
         slug_to_image_data_function: slugToImageData,
         slug_to_image_data_mapping_file: toImgDataMappingFile
       }
     );
 
-    await copy(inputs.templates_dir, TEMPLATES_DIR);
-
-    const includedFiles = [ `${TEMPLATES_DIR}/**` ];
+    const includedFiles = [ `${inputs.templates_dir}/**` ];
     if (inputs.slug_to_image_data_function) {
       includedFiles.push(`${inputs.slug_to_image_data_function}*`);
     }

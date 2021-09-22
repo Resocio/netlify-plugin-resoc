@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
       headless: chromium.headless
     });
 
-    const templateDir = `build-time-resoc-templates/${imgData.template}`;
+    const templateDir = `${config.templates_dir}/${imgData.template}`;
     const template = await resocCreateImg.loadLocalTemplate(`${templateDir}/resoc.manifest.json`);
 
     const htmlPath = await resocCreateImg.renderLocalTemplate(
