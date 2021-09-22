@@ -15,25 +15,27 @@ module.exports = {
     console.log(`Copy Resoc Netlify Function to ${functionDir}`);
     await ensureDir(functionDir);
     await copyFile(
-      join(__dirname, 'netlify-function.js'),
+      join(__dirname, 'resoc-open-graph-image.js'),
       join(functionDir, 'resoc-open-graph-image.js')
     );
 
-    const slugToImageData = inputs.slug_to_image_data_function
-      ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_function}`
-      : null;
-    const toImgDataMappingFile = inputs.slug_to_image_data_mapping_file
-      ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_mapping_file}`
-      : null;
+    const jsonConfigFile = join(functionDir, 'resoc-open-graph-image.json');
+    console.log(`Write Netlify Function configuration to ${jsonConfigFile}`);
+    await writeJSON(jsonConfigFile, {
+      templates_dir: inputs.templates_dir,
 
-    await writeJSON(
-      join(functionDir, 'resoc-open-graph-image.json'), {
-        templates_dir: inputs.templates_dir,
-        slug_to_image_data_function: slugToImageData,
-        slug_to_image_data_mapping_file: toImgDataMappingFile
-      }
-    );
+      slug_to_image_data_function:
+        inputs.slug_to_image_data_function
+          ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_function}`
+          : null,
 
+      slug_to_image_data_mapping_file:
+        inputs.slug_to_image_data_mapping_file
+          ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_mapping_file}`
+          : null
+    });
+
+    console.log("Set Netlify Function configuration");
     const includedFiles = [ `${inputs.templates_dir}/**` ];
     if (inputs.slug_to_image_data_function) {
       includedFiles.push(`${inputs.slug_to_image_data_function}*`);
