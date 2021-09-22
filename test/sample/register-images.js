@@ -13,7 +13,7 @@ resocCreateImg.storeImageData(
       backgroundColor: '#55202a'
     }
   }
-).then(() => {
+).then(() => (
   resocCreateImg.storeImageData(
     STORAGE_FILE,
     'reg2', {
@@ -26,6 +26,6 @@ resocCreateImg.storeImageData(
       }
     }
   )
-}).then(() => {
+)).then(() => {
   console.log("Done!");
 });
