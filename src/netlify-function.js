@@ -32,7 +32,7 @@ const slugToImageDataViaMappingFile = async (slug) => {
   const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
   console.log("Loading " + mappingFilePath);
   const content = await fs.readFile(mappingFilePath);
-  console.log("Content", content);
+  console.log("Content", content.toString());
 
   return resocCreateImg.getImageData(mappingFilePath, slug);
 }
@@ -40,6 +40,7 @@ const slugToImageDataViaMappingFile = async (slug) => {
 exports.handler = async (event, context) => {
   try {
     const slug = eventToSlug(event);
+    console.log("Slug is " + slug);
 
     // First method: function
     let imgData = slugToImageDataViaFunction(slug);
