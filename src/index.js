@@ -7,6 +7,13 @@ const { ensureDir, copyFile, copy, writeJSON } = require('fs-extra');
 
 const TEMPLATES_DIR = 'build-time-resoc-templates';
 
+/**
+ * backwardPath('some/path/to/somewhere') returns '../../../..'
+ */
+const backwardPath = (path) => (
+  path.replace(/\\/g, '/').split('/').map(p => '..').join('/')
+)
+
 /* eslint-disable no-unused-vars */
 module.exports = {
   // The plugin main logic uses `on...` event handlers that are triggered on
@@ -103,10 +110,10 @@ module.exports = {
     );
 
     const slugToImageData = inputs.slug_to_image_data_function
-      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data_function}`
+      ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_function}`
       : null;
     const toImgDataMappingFile = inputs.slug_to_image_data_mapping_file
-      ? `${functionDir.split('/').map(p => '..').join('/')}/${inputs.slug_to_image_data_mapping_file}`
+      ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_mapping_file}`
       : null;
 
     await writeJSON(
