@@ -1,13 +1,10 @@
+const config = require('./resoc-open-graph-image.json');
+
 const { builder } = require("@netlify/functions");
-
 const path = require('path');
-const fs = require('fs').promises;
 const chromium = require('chrome-aws-lambda');
-
 const resocCore = require('@resoc/core');
 const resocCreateImg = require('@resoc/create-img');
-
-const config = require('./resoc-open-graph-image.json');
 
 const eventToSlug = (event) => {
   const path = event.path;
@@ -32,17 +29,16 @@ const slugToImageDataViaMappingFile = async (slug) => {
   }
 
   const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
-  console.log("Loading " + mappingFilePath);
-  const content = await fs.readFile(mappingFilePath);
-  console.log("Content", content.toString());
 
   return resocCreateImg.getImageData(mappingFilePath, slug);
 }
 
 const handler = async (event, context) => {
   try {
+    console.log(`Processing image with config ${JSON.stringify(config)}`);
+
     const slug = eventToSlug(event);
-    console.log("Slug is " + slug);
+    console.log(`Slug ${slug}`);
 
     // First method: function
     let imgData = slugToImageDataViaFunction(slug);
@@ -58,6 +54,8 @@ const handler = async (event, context) => {
         body: JSON.stringify({ error: `No image for ${slug}` })
       };
     }
+
+    console.log("Render image with data", imgData);
 
     const browser = await chromium.puppeteer.launch({
       executablePath: await chromium.executablePath,
@@ -84,8 +82,6 @@ const handler = async (event, context) => {
       browser
     );
 
-    console.log("Chrome closed");
-
     return {
       statusCode: 200,
       headers: {
@@ -98,7 +94,7 @@ const handler = async (event, context) => {
     console.log(error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Error :(' }),
+      body: JSON.stringify({ error: 'An internal error occured' }),
     };
   }
 };
