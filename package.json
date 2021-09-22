@@ -16,9 +16,9 @@
     "netlify-plugin",
     "netlify"
   ],
-  "author": "{{author}} <{{email}}>",
-  "license": "{{license}}",
-  "repository": "{{repo}}",
+  "author": "Philippe Bernard <philippe@resoc.io>",
+  "license": "MIT",
+  "repository": "https://github.com/Resocio/netlify-plugin-resoc",
   "directories": {
     "lib": "src",
     "test": "test"
