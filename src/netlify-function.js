@@ -47,7 +47,7 @@ exports.handler = async (event, context) => {
 
     // Second method: mapping file
     if (!imgData) {
-      let imgData = await slugToImageDataViaMappingFile(slug);
+      imgData = await slugToImageDataViaMappingFile(slug);
     }
 
     if (!imgData) {
