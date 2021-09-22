@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs/promises');
 const chromium = require('chrome-aws-lambda');
 
 const resocCore = require('@resoc/core');
@@ -30,6 +31,9 @@ const slugToImageDataViaMappingFile = (slug) => {
 
   const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
   console.log("Loading " + mappingFilePath);
+  const content = await fs.readFile(mappingFilePath);
+  console.log("Content", content);
+
   return resocCreateImg.getImageData(mappingFilePath, slug);
 }
 
