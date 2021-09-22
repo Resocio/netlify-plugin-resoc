@@ -24,7 +24,9 @@ const slugToImageDataViaMappingFile = (slug) => {
     return null;
   }
 
-  return resocCreateImg.getImageData(config.slug_to_image_data_mapping_file, slug);
+  const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
+  console.log("Loading " + mappingFilePath);
+  return resocCreateImg.getImageData(mappingFilePath, slug);
 }
 
 exports.handler = async (event, context) => {

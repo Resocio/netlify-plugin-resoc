@@ -112,11 +112,14 @@ module.exports = {
     const slugToImageData = inputs.slug_to_image_data_function
       ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_function}`
       : null;
+    const toImgDataMappingFile = inputs.slug_to_image_data_mapping_file
+      ? `${backwardPath(functionDir)}/${inputs.slug_to_image_data_mapping_file}`
+      : null;
 
     await writeJSON(
       join(functionDir, 'resoc-open-graph-image.json'), {
         slug_to_image_data_function: slugToImageData,
-        slug_to_image_data_mapping_file: inputs.slug_to_image_data_mapping_file
+        slug_to_image_data_mapping_file: toImgDataMappingFile
       }
     );
 
