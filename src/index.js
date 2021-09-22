@@ -36,15 +36,9 @@ module.exports = {
     });
 
     console.log("Set Netlify Function configuration");
-    const includedFiles = [ `${inputs.templates_dir}/**` ];
-    if (inputs.slug_to_image_data_function) {
-      includedFiles.push(`${inputs.slug_to_image_data_function}*`);
-    }
-    if (inputs.slug_to_image_data_mapping_file) {
-      includedFiles.push(inputs.slug_to_image_data_mapping_file);
-    }
-
     netlifyConfig.functions[ 'resoc-open-graph-image' ] = {
+      node_bundler: 'esbuild',
+
       external_node_modules: [
         'chrome-aws-lambda',
         'puppeteer-core',
@@ -52,8 +46,12 @@ module.exports = {
         '@resoc/create-img',
         '@netlify/functions'
       ],
-      included_files: includedFiles,
-      node_bundler: 'esbuild'
+
+      included_files: [
+        `${inputs.templates_dir}/**`,
+        inputs.slug_to_image_data_function,
+        inputs.slug_to_image_data_mapping_file
+      ].filter(p => p)
     }
   }
 }
