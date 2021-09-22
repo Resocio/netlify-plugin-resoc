@@ -1,5 +1,5 @@
 const path = require('path');
-const fs = require('fs/promises');
+const fs = require('fs').promises;
 const chromium = require('chrome-aws-lambda');
 
 const resocCore = require('@resoc/core');
