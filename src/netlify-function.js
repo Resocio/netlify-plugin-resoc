@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs/promises');
 const chromium = require('chrome-aws-lambda');
 
 const resocCore = require('@resoc/core');
@@ -24,16 +23,13 @@ const slugToImageDataViaFunction = (slug) => {
   return toImg.slugToImageData(slug);
 }
 
-const slugToImageDataViaMappingFile = (slug) => {
+const slugToImageDataViaMappingFile = async (slug) => {
   if (!config.slug_to_image_data_mapping_file) {
     return null;
   }
 
   const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
   console.log("Loading " + mappingFilePath);
-  const content = await fs.readFile(mappingFilePath);
-  console.log("Content", content);
-
   return resocCreateImg.getImageData(mappingFilePath, slug);
 }
 
@@ -46,7 +42,7 @@ exports.handler = async (event, context) => {
 
     // Second method: mapping file
     if (!imgData) {
-      let imgData = slugToImageDataViaMappingFile(slug);
+      let imgData = await slugToImageDataViaMappingFile(slug);
     }
 
     if (!imgData) {
