@@ -57,7 +57,7 @@ module.exports = {
     if (inputs.open_graph_base_path) {
       netlifyConfig.redirects.push({
         from: `${inputs.open_graph_base_path}/:slug`,
-        to: `${constants.FUNCTIONS_DIST.replace(/\\/g, '/')}/resoc-open-graph-image/:slug`,
+        to: `/.netlify/functions/resoc-open-graph-image/:slug`,
         status: 200
       });
     }
