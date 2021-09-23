@@ -12,7 +12,7 @@ const eventToSlugAndFormat = (event) => {
 
   let format = 'jpeg';
   const dotIdx = slug.lastIndexOf('.');
-  if (dotIdx) {
+  if (dotIdx >= 0) {
     // Remove format from slug
     slug = slug.substr(0, dotIdx);
 
