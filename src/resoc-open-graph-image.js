@@ -13,13 +13,13 @@ const eventToSlugAndFormat = (event) => {
   let format = 'jpeg';
   const dotIdx = slug.lastIndexOf('.');
   if (dotIdx >= 0) {
-    // Remove format from slug
-    slug = slug.substr(0, dotIdx);
-
     if (slug.substr(dotIdx + 1).toLowerCase() === 'png') {
       format = 'png';
     }
     // else: always default to jpeg
+
+    // Remove format from slug
+    slug = slug.substr(0, dotIdx);
   }
 
   return {
