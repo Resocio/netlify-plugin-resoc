@@ -6,9 +6,26 @@ const chromium = require('chrome-aws-lambda');
 const resocCore = require('@resoc/core');
 const resocCreateImg = require('@resoc/create-img');
 
-const eventToSlug = (event) => {
+const eventToSlugAndFormat = (event) => {
   const path = event.path;
-  return path.substr(path.lastIndexOf('/') + 1);
+  let slug = path.substr(path.lastIndexOf('/') + 1);
+
+  let format = 'jpeg';
+  const dotIdx = slug.lastIndexOf('.');
+  if (dotIdx) {
+    // Remove format from slug
+    slug = slug.substr(0, dotIdx);
+
+    if (slug.substr(dotIdx + 1).toLowerCase() === 'png') {
+      format = 'png';
+    }
+    // else: always default to jpeg
+  }
+
+  return {
+    format,
+    slug
+  }
 }
 
 const slugToImageDataViaFunction = (slug) => {
@@ -36,8 +53,8 @@ const handler = async (event, context) => {
   try {
     console.log(`Processing image with config ${JSON.stringify(config)}`);
 
-    const slug = eventToSlug(event);
-    console.log(`Slug ${slug}`);
+    const { slug, format } = eventToSlugAndFormat(event);
+    console.log(`Slug ${slug}, format ${format}`);
 
     // First method: function
     let imgData = slugToImageDataViaFunction(slug);
@@ -71,10 +88,16 @@ const handler = async (event, context) => {
       templateDir
     );
 
+    const imageFormat = {
+      type: format
+    };
+    if (format === 'jpeg') {
+      imageFormat.quality = 80;
+    }
+
     const image = await resocCreateImg.convertUrlToImage(
       `file:///${htmlPath}`, {
-        type: 'jpeg',
-        quality: 80,
+        ...imageFormat,
         encoding: "base64",
         fullPage: true
       },
