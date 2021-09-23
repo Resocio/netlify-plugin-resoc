@@ -17,7 +17,6 @@ const slugToImageDataViaFunction = (slug) => {
   }
 
   const functionPath = path.join(__dirname, config.slug_to_image_data_function + '.js');
-  console.log("FYI functionPath", functionPath);
 
   const toImg = require(config.slug_to_image_data_function);
   return toImg.slugToImageData(slug);
