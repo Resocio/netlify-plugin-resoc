@@ -12,6 +12,7 @@ package = "."
   templates_dir = "test/sample/resoc-templates"
   slug_to_image_data_function = "test/sample/slug-to-image-data.js"
   slug_to_image_data_mapping_file = "test/sample/resoc-storage.json"
+  open_graph_base_path = "/social-images/open-graph"
 
 [build]
   command = "npm run build:sample"

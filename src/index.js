@@ -53,5 +53,13 @@ module.exports = {
         inputs.slug_to_image_data_mapping_file
       ].filter(p => p)
     }
+
+    if (inputs.open_graph_base_path) {
+      netlifyConfig.redirects.push({
+        from: `${inputs.open_graph_base_path}/:slug`,
+        to: `${constants.FUNCTIONS_DIST.replace(/\\/g, '/')}/resoc-open-graph-image/:slug`,
+        status: 200
+      });
+    }
   }
 }

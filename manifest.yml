@@ -10,3 +10,6 @@ inputs:
   - name: slug_to_image_data_mapping_file
     description: JSON file which maps slugs to template and parameter values.
     required: false
+  - name: open_graph_base_path
+    description: Base path of the Open Graph images
+    required: false
