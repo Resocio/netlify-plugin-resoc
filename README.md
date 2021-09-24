@@ -52,7 +52,7 @@ There are two ways to achieve this.
 
 **Your images won't be generated at build time** - Here, we are only talking about gathering the image data.
 
-Several frameworks and site builders create website statically: Next.js, Gatsby, 11ty... In this scenario, it makes sense to collect all the data at build time. This is achieved by preparing a image data mapping file.
+Several frameworks and site builders create website statically: Next.js, Gatsby, 11ty... In this scenario, it makes sense to collect all the data at build time. This is achieved by preparing an image data mapping file.
 
 In `netlify.toml`, declare this file:
 
@@ -80,7 +80,7 @@ import { storeImageData } from '@resoc/img-data'
 
 await storeImageData(
   'resoc-image-data.json', // Mapping file, as declared in netlify.toml
-  "news",
+  "news", // Slug
   {
     // `${templates_dir}/${template}/resoc.manifest.json` should exist,
     // where templates_dir comes from netlify.toml and template is the parameter below
@@ -133,13 +133,13 @@ Also update `pages/_app.js`, where you manage the `head` markups:
 <meta property="og:image" content={`/social-images/${pageProps.imgSlug}.jpg`} />
 ```
 
-Thanks to the Next.js build system, the `getStaticProps` will be called for all pages. Therefore, all image data will be saved as a side effect.
+Thanks to the Next.js build system, `getStaticProps` will be called for all pages. Therefore, all image data will be saved as a side effect.
 
 ## Dynamically, at runtime
 
 If your site has pages which URL or data are not known at build time, you need to provide the image data via a function that will be run by the Netlify Function.
 
-Configure the function:
+Configure the function in `netlify.toml`:
 
 ```toml
 [[plugins]]
@@ -169,7 +169,7 @@ exports.slugToImageData = (slug) => {
 }
 ```
 
-The page itself must declare the Ope Graph Image accordingly:
+The page itself must declare the Open Graph Image accordingly:
 
 ```html
 <meta property="og:image" content={`/social-images/${slug}.jpg`} />
@@ -177,4 +177,4 @@ The page itself must declare the Ope Graph Image accordingly:
 
 ## Deploy to Netlify
 
-Your app is ready to be deployed to Netlify!
+That's all! Your app is ready to be deployed to Netlify.
