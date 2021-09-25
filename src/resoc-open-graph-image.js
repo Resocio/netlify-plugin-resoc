@@ -5,6 +5,7 @@ const path = require('path');
 const chromium = require('chrome-aws-lambda');
 const resocCore = require('@resoc/core');
 const resocCreateImg = require('@resoc/create-img');
+const resocImgData = require('@resoc/img-data');
 
 const eventToSlugAndFormat = (event) => {
   const path = event.path;
@@ -46,7 +47,7 @@ const slugToImageDataViaMappingFile = async (slug) => {
 
   const mappingFilePath = path.join(__dirname, config.slug_to_image_data_mapping_file);
 
-  return resocCreateImg.getImageData(mappingFilePath, slug);
+  return resocImgData.getImageData(mappingFilePath, slug);
 }
 
 const handler = async (event, context) => {
