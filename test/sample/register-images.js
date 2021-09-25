@@ -1,8 +1,8 @@
-const resocCreateImg = require('@resoc/create-img');
+const resocImgData = require('@resoc/img-data');
 
 const STORAGE_FILE = 'test/sample/resoc-storage.json';
 
-resocCreateImg.storeImageData(
+resocImgData.storeImageData(
   STORAGE_FILE,
   'reg1', {
     template: 'default',
@@ -14,7 +14,7 @@ resocCreateImg.storeImageData(
     }
   }
 ).then(() => (
-  resocCreateImg.storeImageData(
+  resocImgData.storeImageData(
     STORAGE_FILE,
     'reg2', {
       template: 'default',
