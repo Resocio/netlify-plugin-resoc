@@ -46,6 +46,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "execa": "^5.0.0",
+    "fs-extra": "^10.0.0",
     "netlify-cli": "^6.8.13",
     "prettier": "^2.1.2",
     "release-it": "^14.0.3"
@@ -56,7 +57,6 @@
     "@resoc/create-img-core": "^0.8.5",
     "@resoc/img-data": "^0.8.5",
     "chrome-aws-lambda": "^10.1.0",
-    "fs-extra": "^10.0.0",
     "puppeteer-core": "^10.2.0"
   }
 }
