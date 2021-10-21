@@ -4,7 +4,7 @@ const { builder } = require("@netlify/functions");
 const path = require('path');
 const chromium = require('chrome-aws-lambda');
 const resocCore = require('@resoc/core');
-const resocCreateImg = require('@resoc/create-img');
+const resocCreateImg = require('@resoc/create-img-core');
 const resocImgData = require('@resoc/img-data');
 
 const eventToSlugAndFormat = (event) => {
