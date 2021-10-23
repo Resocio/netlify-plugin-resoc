@@ -1,6 +1,6 @@
 {
   "name": "@resoc/netlify-plugin-social-image",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Resoc Social Image generator plugin for Netlify",
   "private": false,
   "main": "src/index.js",
