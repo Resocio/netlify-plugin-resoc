@@ -57,6 +57,7 @@
     "@resoc/create-img-core": "^0.8.5",
     "@resoc/img-data": "^0.8.5",
     "chrome-aws-lambda": "^10.1.0",
-    "puppeteer-core": "^10.2.0"
+    "puppeteer-core": "^10.2.0",
+    "node-fetch": "2.6.1"
   }
 }
