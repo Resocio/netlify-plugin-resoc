@@ -29,7 +29,7 @@ const eventToSlugAndFormat = (event) => {
   }
 }
 
-const slugToImageDataViaFunction = (slug) => {
+const slugToImageDataViaFunction = async (slug) => {
   if (!config.slug_to_image_data_function) {
     return null;
   }
@@ -37,7 +37,7 @@ const slugToImageDataViaFunction = (slug) => {
   const functionPath = path.join(__dirname, config.slug_to_image_data_function + '.js');
 
   const toImg = require(config.slug_to_image_data_function);
-  return toImg.slugToImageData(slug);
+  return await toImg.slugToImageData(slug);
 }
 
 const slugToImageDataViaMappingFile = async (slug) => {
@@ -58,7 +58,7 @@ const handler = async (event, context) => {
     console.log(`Slug ${slug}, format ${format}`);
 
     // First method: function
-    let imgData = slugToImageDataViaFunction(slug);
+    let imgData = await slugToImageDataViaFunction(slug);
 
     // Second method: mapping file
     if (!imgData) {
