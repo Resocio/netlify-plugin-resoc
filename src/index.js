@@ -11,7 +11,7 @@ const backwardPath = (path) => (
 /* eslint-disable no-unused-vars */
 module.exports = {
   async onBuild({ netlifyConfig, constants, inputs }) {
-    const functionDir = 'netlify/builders';
+    const functionDir = constants.FUNCTIONS_SRC || 'netlify/functions';
     console.log(`Copy Resoc Netlify Function to ${functionDir}`);
     await ensureDir(functionDir);
     await copyFile(
