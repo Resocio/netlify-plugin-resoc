@@ -11,7 +11,7 @@ const backwardPath = (path) => (
 /* eslint-disable no-unused-vars */
 module.exports = {
   async onBuild({ netlifyConfig, constants, inputs }) {
-    const functionDir = constants.FUNCTIONS_SRC || 'netlify/functions';
+    const functionDir = 'netlify/builders';
     console.log(`Copy Resoc Netlify Function to ${functionDir}`);
     await ensureDir(functionDir);
     await copyFile(
@@ -57,7 +57,7 @@ module.exports = {
     if (inputs.open_graph_base_path) {
       netlifyConfig.redirects.push({
         from: `${inputs.open_graph_base_path}/:slug`,
-        to: `/.netlify/functions/resoc-open-graph-image/:slug`,
+        to: `/.netlify/builders/resoc-open-graph-image/:slug`,
         status: 200
       });
     }
